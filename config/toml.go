@@ -502,7 +502,7 @@ func ResetTestRootWithChainID(testName string, chainID string) *Config {
 	return config
 }
 
-var testEd25519GenesisFmt = `{
+var testGenesisFmt = `{
   "genesis_time": "2018-10-10T08:20:13.695936996Z",
   "chain_id": "%s",
   "initial_height": "1",
@@ -537,7 +537,7 @@ var testEd25519GenesisFmt = `{
   "app_hash": ""
 }`
 
-var testGenesisFmt = `{
+var testGenesisFmt_BLS12381 = `{
   "genesis_time": "2018-10-10T08:20:13.695936996Z",
   "chain_id": "%s",
   "initial_height": "1",
@@ -572,7 +572,7 @@ var testGenesisFmt = `{
   "app_hash": ""
 }`
 
-var testEd25519PrivValidatorKey = `{
+var testPrivValidatorKey = `{
   "address": "A3258DCBF45DCA0DF052981870F2D1441A36D145",
   "pub_key": {
     "type": "tendermint/PubKeyEd25519",
@@ -584,7 +584,7 @@ var testEd25519PrivValidatorKey = `{
   }
 }`
 
-var testPrivValidatorKey = `{
+var testPrivValidatorKey_BLS12381 = `{
   "address": "DDAD59BB10A10088C5A9CA219C3CF5BB4599B54E",
   "pub_key": {
     "type": "tendermint/PubKeyBLS12381",
