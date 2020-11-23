@@ -10,10 +10,9 @@ rm -rf "${BLS_REPO_PATH}"
 mkdir -pv "${GOPATH}"/github.com/dashpay/
 
 # Cloning bls repo and fetching dependencies
-git clone https://github.com/dashpay/bls-signatures.git "$BLS_REPO_PATH"
+git clone --depth=1 --branch=develop --single-branch https://github.com/dashpay/bls-signatures.git "$BLS_REPO_PATH"
 cd "$BLS_REPO_PATH"
 git submodule update --init --recursive
-git checkout develop
 
 # Build and install the bindings
 mkdir build
