@@ -112,7 +112,12 @@ func genPrivKey(rand io.Reader) PrivKey {
 		panic(err)
 	}
 
-	return PrivKey(bls.PrivateKeyFromSeed(seed).Serialize())
+	pk, err := bls.PrivateKeyFromSeed(seed)
+	if err != nil {
+		panic(err)
+	}
+
+	return pk.Serialize()
 }
 
 // GenPrivKeyFromSecret hashes the secret with SHA2, and uses
@@ -122,7 +127,12 @@ func genPrivKey(rand io.Reader) PrivKey {
 func GenPrivKeyFromSecret(secret []byte) PrivKey {
 	seed := crypto.Sha256(secret) // Not Ripemd160 because we want 32 bytes.
 
-	return PrivKey(bls.PrivateKeyFromSeed(seed).Serialize())
+	pk, err := bls.PrivateKeyFromSeed(seed)
+	if err != nil {
+		panic(err)
+	}
+
+	return pk.Serialize()
 }
 
 //-------------------------------------
