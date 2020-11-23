@@ -2,8 +2,8 @@ GOPATH=$(go env GOPATH)
 BLS_REPO_PATH="${GOPATH}"/src/github.com/dashpay/bls-signatures
 
 # Install packages for bindings
-GO111MODULE=off go get golang.org/x/tools/cmd/goimports
-GO111MODULE=off go get golang.org/x/lint/golint
+go get golang.org/x/tools/cmd/goimports
+go get golang.org/x/lint/golint
 
 # Cleaning previous build
 rm -rf "${BLS_REPO_PATH}"
