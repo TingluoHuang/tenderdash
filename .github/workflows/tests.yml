@@ -49,6 +49,19 @@ jobs:
           path: ~/go/bin
           key: ${{ runner.os }}-${{ github.sha }}-tm-binary
         if: env.GIT_DIFF
+      # Cache bls library for use by other jobs
+      - name: Save BLS library
+        run: |
+             mkdir -p ~/bls-cache/include
+             cp -vr /usr/local/include/chiabls ~/bls-cache/include
+             cp -vr /usr/local/include/relic* ~/bls-cache/include
+             cp -v /usr/local/lib/libchiabls.a ~/bls-cache/
+        if: env.GIT_DIFF
+      - uses: actions/cache@v2.1.2
+        with:
+          path: ~/bls-cache
+          key: ${{ runner.os }}-bls-library
+        if: env.GIT_DIFF
 
   test_abci_apps:
     runs-on: ubuntu-latest
@@ -76,6 +89,16 @@ jobs:
         with:
           path: ~/go/bin
           key: ${{ runner.os }}-${{ github.sha }}-tm-binary
+        if: env.GIT_DIFF
+      - uses: actions/cache@v2.1.2
+        with:
+          path: ~/bls-cache
+          key: ${{ runner.os }}-bls-library
+        if: env.GIT_DIFF
+      - name: Install BLS library
+        run: |
+             sudo cp -vr ~/bls-cache/include/* /usr/local/include/
+             sudo cp -vr ~/bls-cache/libchiabls.a /usr/local/lib/
         if: env.GIT_DIFF
       - name: test_abci_apps
         run: abci/tests/test_app/test.sh
@@ -139,6 +162,16 @@ jobs:
         with:
           path: ~/go/bin
           key: ${{ runner.os }}-${{ github.sha }}-tm-binary
+        if: env.GIT_DIFF
+      - uses: actions/cache@v2.1.2
+        with:
+          path: ~/bls-cache
+          key: ${{ runner.os }}-bls-library
+        if: env.GIT_DIFF
+      - name: Install BLS library
+        run: |
+             sudo cp -vr ~/bls-cache/include/* /usr/local/include/
+             sudo cp -vr ~/bls-cache/libchiabls.a /usr/local/lib/
         if: env.GIT_DIFF
       - name: test_apps
         run: test/app/test.sh
