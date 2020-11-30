@@ -14,8 +14,11 @@ WORKDIR /src/tenderdash
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Build Tenderdash and install into /usr/bin/tenderdash
+# Copy Tenderdash source
 COPY . .
+# Install BLS library
+RUN make bls_install
+# Build Tenderdash and install into /usr/bin/tenderdash
 RUN make build && cp build/tenderdash /usr/bin/tenderdash
 COPY test/e2e/docker/entrypoint* /usr/bin/
 RUN cd test/e2e && make maverick && cp build/maverick /usr/bin/maverick
