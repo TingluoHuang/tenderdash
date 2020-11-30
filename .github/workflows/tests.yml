@@ -34,7 +34,7 @@ jobs:
             go.mod
             go.sum
       - name: install
-        run: make install install_abci
+        run: sudo make install install_abci
         if: "env.GIT_DIFF != ''"
       - uses: actions/cache@v2.1.2
         with:
